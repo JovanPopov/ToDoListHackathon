@@ -101,9 +101,6 @@ public class TaskDetailActivity extends AppCompatActivity {
             try {
                 task = restApi.updateTask(task.getId(), task);
                 notifyUser();
-                //final Intent intent = new Intent();
-                //setResult(RESULT_OK, intent);
-               // finish();
             } catch (Exception e) {
                 Log.e(TAG, e.getMessage(), e);
             }
@@ -113,6 +110,7 @@ public class TaskDetailActivity extends AppCompatActivity {
 
         }
     }
+
     @UiThread
     public void showError() {
         inputError.setError(getString(R.string.emptyError));
@@ -132,10 +130,10 @@ public class TaskDetailActivity extends AppCompatActivity {
     }
 
     @AfterTextChange(R.id.title)
-    void removeError(TextView hello) {
+    void removeError() {
         inputError.setErrorEnabled(false);
-
     }
+
     @Override
     public void onCreate(Bundle savedInstanceState, PersistableBundle persistentState) {
         super.onCreate(savedInstanceState, persistentState);

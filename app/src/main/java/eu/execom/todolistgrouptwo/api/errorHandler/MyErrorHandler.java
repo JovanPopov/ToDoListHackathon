@@ -34,12 +34,11 @@ public class MyErrorHandler implements RestErrorHandler {
     @Override
     public void onRestClientExceptionThrown(NestedRuntimeException e) {
         Log.e(TAG, e.getMessage(), e);
-        check();
 
-        //Toast.makeText(context, "Network problem", Toast.LENGTH_SHORT).show();
+        checkNetwork();
 
 
-              if (e instanceof HttpClientErrorException) {
+        if (e instanceof HttpClientErrorException) {
             HttpClientErrorException exception = (HttpClientErrorException) e;
 
             if (exception.getStatusCode().equals(HttpStatus.UNAUTHORIZED)) {
@@ -48,7 +47,6 @@ public class MyErrorHandler implements RestErrorHandler {
                 }
                 LoginActivity_.intent(context).startForResult(HomeActivity_.LOGIN_REQUEST_CODE);
 
-            } else if (exception.getStatusCode().equals(HttpStatus.BAD_GATEWAY)) {
             }
         }
 
@@ -56,13 +54,8 @@ public class MyErrorHandler implements RestErrorHandler {
     }
 
     @UiThread
-    public void check(){
+    public void checkNetwork(){
         NetworkingUtils.checkForConnection(context);
-    }
-
-    @UiThread
-    public void unautorized(){
-        LoginActivity_.intent(context).startForResult(HomeActivity_.LOGIN_REQUEST_CODE);
     }
 
 }

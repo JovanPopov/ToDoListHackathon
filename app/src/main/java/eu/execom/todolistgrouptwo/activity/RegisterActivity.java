@@ -5,6 +5,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import org.androidannotations.annotations.Background;
 import org.androidannotations.annotations.Bean;
@@ -71,13 +72,6 @@ public class RegisterActivity extends AppCompatActivity {
             showRegisterError();
             Log.e(TAG, e.getMessage(),e);
         }
-
-
-       /* if (userCreated) {
-            login(user);
-        } else {
-            showRegisterError();
-        }*/
     }
 
     @UiThread
@@ -91,7 +85,7 @@ public class RegisterActivity extends AppCompatActivity {
 
     @UiThread
     void showRegisterError() {
-        email.setError("Email already exists.");
+        Toast.makeText(this, "Registration failed", Toast.LENGTH_SHORT).show();
     }
 
 }

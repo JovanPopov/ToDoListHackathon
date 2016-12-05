@@ -47,12 +47,10 @@ public class TaskItemView extends LinearLayout {
         title.setText(task.getTitle());
         description.setText(task.getDescription());
         if(task.isFinished()) {
-            //imageDone.setImageResource(R.drawable.ic_check_circle_black_24dp);
             taskDone.setChecked(true);
             title.setPaintFlags(title.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
         }else{
             taskDone.setChecked(false);
-            //imageDone.setImageResource(R.drawable.ic_panorama_fish_eye_black_24dp);
             title.setPaintFlags(title.getPaintFlags() & (~ Paint.STRIKE_THRU_TEXT_FLAG));
         }
 

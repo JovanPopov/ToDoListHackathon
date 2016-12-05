@@ -42,12 +42,15 @@
         android:id="@+id/login"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/log_in" />
+        android:text="@string/log_in"
+        android:layout_marginTop="12sp"
+        style="@style/Widget.AppCompat.Button.Colored"/>
 
     <Button
         android:id="@+id/register"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/register" />
+        android:text="@string/register"
+        style="@style/Widget.AppCompat.Button.Colored"/>
 
 </LinearLayout>

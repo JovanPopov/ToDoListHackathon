@@ -20,9 +20,6 @@ public class AuthenticationInterceptor implements ClientHttpRequestInterceptor {
     @Pref
     UserPreferences_ userPreferences;
 
-
-
-
     @Override
     public ClientHttpResponse intercept(HttpRequest request, byte[] body, ClientHttpRequestExecution execution) throws IOException {
         request.getHeaders().add("Authorization",

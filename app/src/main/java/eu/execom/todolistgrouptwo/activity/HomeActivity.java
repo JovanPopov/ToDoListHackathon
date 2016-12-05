@@ -122,14 +122,10 @@ public class HomeActivity extends AppCompatActivity{
 
         restApi.setRestErrorHandler(myErrorHandler);
 
-
-
         if (!userPreferences.accessToken().exists()) {
             LoginActivity_.intent(this).startForResult(LOGIN_REQUEST_CODE);
             return;
         }
-
-        //user = userDAOWrapper.findById(userPreferences.userId().get());
 
         initData();
     }
@@ -141,17 +137,13 @@ public class HomeActivity extends AppCompatActivity{
 
     @ItemClick
     void myListViewItemClicked(Task task){
-
         final Gson gson = new Gson();
         TaskDetailActivity_.intent(this).extra("taskDetail",gson.toJson(task)).startForResult(EDIT_TASK_REQUEST_CODE);
-
-
     }
 
     @UiThread
     void initData() {
         myListView.setAdapter(adapter);
-       // adapter.setTasks(tasks);
         adapter.setTaskDoneListener(new TaskDoneListener() {
             @Override
             public void taskDone(Task task) {
@@ -211,7 +203,6 @@ public class HomeActivity extends AppCompatActivity{
     @Background
     void onResult(int resultCode, @OnActivityResult.Extra String task) {
         if (resultCode == RESULT_OK) {
-           //Toast.makeText(this, task, Toast.LENGTH_SHORT).show();
             final Gson gson = new Gson();
             final Task newTask = gson.fromJson(task, Task.class);
 
@@ -240,12 +231,7 @@ public class HomeActivity extends AppCompatActivity{
         }
     }
 
-    @OnActivityResult(EDIT_TASK_REQUEST_CODE)
-    void onTaskEdit(int resultCode) {
-        if (resultCode == RESULT_OK) {
-            refreshTasks();
-        }
-    }
+
     @OptionsItem
     boolean menuLogout() {
         userPreferences.accessToken().remove();
@@ -255,29 +241,18 @@ public class HomeActivity extends AppCompatActivity{
 
     @OptionsItem
     boolean refresh() {
-
         refreshTasks();
-
         return true;
     }
 
     @Background
     void refreshTasks(){
-
-
         try {
             tasks = restApi.getAallTasks();
             refreshList();
         } catch (Exception e) {
             e.printStackTrace();
-            //checkForConnection();
         }
-
-
-
-
-
-
     }
 
     @UiThread
@@ -287,12 +262,9 @@ public class HomeActivity extends AppCompatActivity{
         }
     }
 
-
     @UiThread
     public void checkForConnection(){
-
         NetworkingUtils.checkForConnection(this);
-
     }
 
     @Override
