@@ -1,22 +1,12 @@
 package eu.execom.todolistgrouptwo.activity;
 
-import android.app.AlertDialog;
-import android.content.Context;
-import android.content.DialogInterface;
-import android.content.Intent;
-import android.net.ConnectivityManager;
-import android.net.NetworkInfo;
-import android.net.wifi.WifiManager;
-import android.os.Bundle;
+
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.MenuItem;
-import android.view.View;
 import android.widget.AbsListView;
-import android.widget.AdapterView;
 import android.widget.ListView;
-import android.widget.Toast;
 
 import com.google.gson.Gson;
 
@@ -42,14 +32,10 @@ import java.util.List;
 import eu.execom.todolistgrouptwo.R;
 import eu.execom.todolistgrouptwo.adapter.TaskAdapter;
 import eu.execom.todolistgrouptwo.api.RestApi;
-import eu.execom.todolistgrouptwo.api.errorHandler.MyErrorHandler;
-import eu.execom.todolistgrouptwo.database.wrapper.TaskDAOWrapper;
-import eu.execom.todolistgrouptwo.database.wrapper.UserDAOWrapper;
+import eu.execom.todolistgrouptwo.api.errorhandler.MyErrorHandler;
 import eu.execom.todolistgrouptwo.model.Task;
-import eu.execom.todolistgrouptwo.model.User;
 import eu.execom.todolistgrouptwo.preference.UserPreferences_;
 import eu.execom.todolistgrouptwo.protocol.TaskDoneListener;
-import eu.execom.todolistgrouptwo.util.NetworkingUtils;
 
 /**
  * Home {@link AppCompatActivity Activity} for navigation and listing all tasks.
@@ -75,8 +61,6 @@ public class HomeActivity extends AppCompatActivity{
      */
     private List<Task> tasks;
 
-
-
     /**
      * {@link FloatingActionButton FloatingActionButton} for starting the
      * {@link AddTaskActivity AddTaskActivity}.
@@ -96,11 +80,6 @@ public class HomeActivity extends AppCompatActivity{
     @Bean
     TaskAdapter adapter;
 
-    @Bean
-    UserDAOWrapper userDAOWrapper;
-
-    @Bean
-    TaskDAOWrapper taskDAOWrapper;
 
     @Pref
     UserPreferences_ userPreferences;

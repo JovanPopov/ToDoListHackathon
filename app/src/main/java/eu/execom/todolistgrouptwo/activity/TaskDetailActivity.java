@@ -1,6 +1,5 @@
 package eu.execom.todolistgrouptwo.activity;
 
-import android.content.Intent;
 import android.os.PersistableBundle;
 import android.support.design.widget.TextInputEditText;
 import android.support.design.widget.TextInputLayout;
@@ -9,16 +8,12 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.Button;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.gson.Gson;
 
-import org.androidannotations.annotations.AfterExtras;
 import org.androidannotations.annotations.AfterInject;
 import org.androidannotations.annotations.AfterTextChange;
-import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.Background;
 import org.androidannotations.annotations.Bean;
 import org.androidannotations.annotations.Click;
@@ -34,7 +29,7 @@ import org.springframework.web.client.RestClientException;
 
 import eu.execom.todolistgrouptwo.R;
 import eu.execom.todolistgrouptwo.api.RestApi;
-import eu.execom.todolistgrouptwo.api.errorHandler.MyErrorHandler;
+import eu.execom.todolistgrouptwo.api.errorhandler.MyErrorHandler;
 import eu.execom.todolistgrouptwo.model.Task;
 
 

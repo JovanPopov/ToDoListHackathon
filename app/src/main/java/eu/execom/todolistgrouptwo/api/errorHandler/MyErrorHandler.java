@@ -1,8 +1,7 @@
-package eu.execom.todolistgrouptwo.api.errorHandler;
+package eu.execom.todolistgrouptwo.api.errorhandler;
 
 import android.content.Context;
 import android.util.Log;
-import android.widget.Toast;
 
 import org.androidannotations.annotations.EBean;
 import org.androidannotations.annotations.RootContext;
@@ -13,7 +12,6 @@ import org.springframework.core.NestedRuntimeException;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.client.HttpClientErrorException;
 
-import eu.execom.todolistgrouptwo.R;
 import eu.execom.todolistgrouptwo.activity.HomeActivity_;
 import eu.execom.todolistgrouptwo.activity.LoginActivity_;
 import eu.execom.todolistgrouptwo.preference.UserPreferences_;

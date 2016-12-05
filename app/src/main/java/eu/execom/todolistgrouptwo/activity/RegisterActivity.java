@@ -3,10 +3,8 @@ package eu.execom.todolistgrouptwo.activity;
 import android.content.Intent;
 import android.support.design.widget.TextInputLayout;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.util.Log;
 import android.widget.EditText;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import org.androidannotations.annotations.AfterInject;
@@ -22,24 +20,16 @@ import org.androidannotations.rest.spring.annotations.RestService;
 import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.RestClientException;
 
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-
 import eu.execom.todolistgrouptwo.R;
 import eu.execom.todolistgrouptwo.api.RestApi;
-import eu.execom.todolistgrouptwo.api.errorHandler.MyErrorHandler;
-import eu.execom.todolistgrouptwo.database.wrapper.UserDAOWrapper;
-import eu.execom.todolistgrouptwo.model.User;
+import eu.execom.todolistgrouptwo.api.errorhandler.MyErrorHandler;
 import eu.execom.todolistgrouptwo.model.UserRegister;
-import eu.execom.todolistgrouptwo.model.dto.TokenContainerDTO;
 import eu.execom.todolistgrouptwo.util.NetworkingUtils;
 
 @EActivity(R.layout.activity_register)
 public class RegisterActivity extends AppCompatActivity {
 
     public static final String TAG = RegisterActivity.class.getSimpleName();
-    @Bean
-    UserDAOWrapper userDAOWrapper;
 
     @ViewById
     EditText email;
@@ -77,24 +67,24 @@ public class RegisterActivity extends AppCompatActivity {
     @Click
     void register() {
         final String name = this.email.getText().toString();
-        final String password = this.password.getText().toString();
-        final String confirmPassword = this.confirmPassword.getText().toString();
-        final UserRegister userRegister = new UserRegister(name, password, confirmPassword);
+        final String newpassword = this.password.getText().toString();
+        final String newconfirmPassword = this.confirmPassword.getText().toString();
+        final UserRegister userRegister = new UserRegister(name, newpassword, newconfirmPassword);
 
         if(emailValid && passwordsValid && passwordsValid) {
             registerUser(userRegister);
         }else{
             if(!emailValid){
                 inputError.setErrorEnabled(true);
-                inputError.setError("Enter valid email address");
+                inputError.setError(getString(R.string.emailError));
             }
             if(!passwordValid) {
                 passLengthError.setErrorEnabled(true);
-                passLengthError.setError("Password must be between 6 and 20 characters");
+                passLengthError.setError(getString(R.string.passwordError));
             }
             if(!passwordsValid) {
                 passwordsError.setErrorEnabled(true);
-                passwordsError.setError("Passwords must match");
+                passwordsError.setError(getString(R.string.passwordsError));
             }
         }
     }
@@ -139,7 +129,7 @@ public class RegisterActivity extends AppCompatActivity {
 
     @UiThread
     void showRegisterError() {
-        Toast.makeText(this, "Registration failed, email already in use", Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, R.string.registrationFailed, Toast.LENGTH_SHORT).show();
     }
 
     @AfterTextChange(R.id.email)

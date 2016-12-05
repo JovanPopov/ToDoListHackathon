@@ -15,4 +15,9 @@
     <string name="task_done">Task done!</string>
     <string name="refresh">Refresh</string>
     <string name="emptyError">Can not be empty</string>
+    <string name="emailError">Enter valid email address</string>
+    <string name="passwordError">Password must be between 6 and 20 characters</string>
+    <string name="passwordsError">Passwords must match</string>
+    <string name="registrationFailed">Registration failed, email already in use</string>
+    <string name="loginInvalid">Invalid username and password combination.</string>
 </resources>

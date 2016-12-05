@@ -20,9 +20,7 @@ import org.springframework.web.client.RestClientException;
 
 import eu.execom.todolistgrouptwo.R;
 import eu.execom.todolistgrouptwo.api.RestApi;
-import eu.execom.todolistgrouptwo.api.errorHandler.MyErrorHandler;
-import eu.execom.todolistgrouptwo.database.wrapper.UserDAOWrapper;
-import eu.execom.todolistgrouptwo.model.User;
+import eu.execom.todolistgrouptwo.api.errorhandler.MyErrorHandler;
 import eu.execom.todolistgrouptwo.model.dto.TokenContainerDTO;
 import eu.execom.todolistgrouptwo.util.NetworkingUtils;
 
@@ -32,8 +30,6 @@ public class LoginActivity extends AppCompatActivity {
     public static final int REGISTER_RESULT = 1;
     public static final String TAG = LoginActivity.class.getSimpleName();
 
-    @Bean
-    UserDAOWrapper userDAOWrapper;
 
     @ViewById
     EditText username;
@@ -88,7 +84,7 @@ public class LoginActivity extends AppCompatActivity {
     @UiThread
     void showLoginError() {
         Toast.makeText(this,
-                "Invalid username and password combination.",
+                R.string.loginInvalid,
                 Toast.LENGTH_SHORT)
                 .show();
     }
