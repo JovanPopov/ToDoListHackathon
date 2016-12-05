@@ -59,6 +59,7 @@ public class AddTaskActivity extends AppCompatActivity {
             setResult(RESULT_OK, intent);
             finish();
         }else{
+            inputError.setErrorEnabled(true);
             inputError.setError(getString(R.string.emptyError));
         }
     }

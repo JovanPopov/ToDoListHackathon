@@ -16,9 +16,11 @@ import android.widget.Toast;
 import com.google.gson.Gson;
 
 import org.androidannotations.annotations.AfterExtras;
+import org.androidannotations.annotations.AfterInject;
 import org.androidannotations.annotations.AfterTextChange;
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.Background;
+import org.androidannotations.annotations.Bean;
 import org.androidannotations.annotations.Click;
 import org.androidannotations.annotations.EActivity;
 import org.androidannotations.annotations.Extra;
@@ -28,9 +30,11 @@ import org.androidannotations.annotations.OptionsMenuItem;
 import org.androidannotations.annotations.UiThread;
 import org.androidannotations.annotations.ViewById;
 import org.androidannotations.rest.spring.annotations.RestService;
+import org.springframework.web.client.RestClientException;
 
 import eu.execom.todolistgrouptwo.R;
 import eu.execom.todolistgrouptwo.api.RestApi;
+import eu.execom.todolistgrouptwo.api.errorHandler.MyErrorHandler;
 import eu.execom.todolistgrouptwo.model.Task;
 
 
@@ -61,6 +65,13 @@ public class TaskDetailActivity extends AppCompatActivity {
     @ViewById
     TextInputLayout inputError;
 
+    @Bean
+    MyErrorHandler myErrorHandler;
+
+    @AfterInject
+    void setUpErrorHandler(){
+        restApi.setRestErrorHandler(myErrorHandler);
+    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -101,7 +112,7 @@ public class TaskDetailActivity extends AppCompatActivity {
             try {
                 task = restApi.updateTask(task.getId(), task);
                 notifyUser();
-            } catch (Exception e) {
+            } catch (RestClientException e) {
                 Log.e(TAG, e.getMessage(), e);
             }
 
@@ -113,6 +124,7 @@ public class TaskDetailActivity extends AppCompatActivity {
 
     @UiThread
     public void showError() {
+        inputError.setErrorEnabled(true);
         inputError.setError(getString(R.string.emptyError));
     }
 

@@ -38,9 +38,6 @@ public interface RestApi extends RestClientErrorHandling {
     @Post(value = ApiConstants.REGISTER_PATH)
     void register(@Body UserRegister user);
 
-    @Post(value = ApiConstants.LOGOUT_PATH)
-    void logout();
-
     @Get(value = ApiConstants.TASK_PATH + "/{id}")
     Task getTask(@Path int id);
 

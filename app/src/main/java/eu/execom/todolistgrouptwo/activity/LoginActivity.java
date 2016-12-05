@@ -6,6 +6,7 @@ import android.util.Log;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import org.androidannotations.annotations.AfterInject;
 import org.androidannotations.annotations.Background;
 import org.androidannotations.annotations.Bean;
 import org.androidannotations.annotations.Click;
@@ -15,9 +16,11 @@ import org.androidannotations.annotations.OnActivityResult;
 import org.androidannotations.annotations.UiThread;
 import org.androidannotations.annotations.ViewById;
 import org.androidannotations.rest.spring.annotations.RestService;
+import org.springframework.web.client.RestClientException;
 
 import eu.execom.todolistgrouptwo.R;
 import eu.execom.todolistgrouptwo.api.RestApi;
+import eu.execom.todolistgrouptwo.api.errorHandler.MyErrorHandler;
 import eu.execom.todolistgrouptwo.database.wrapper.UserDAOWrapper;
 import eu.execom.todolistgrouptwo.model.User;
 import eu.execom.todolistgrouptwo.model.dto.TokenContainerDTO;
@@ -41,6 +44,16 @@ public class LoginActivity extends AppCompatActivity {
     @RestService
     RestApi restApi;
 
+    @Bean
+    MyErrorHandler myErrorHandler;
+
+
+    @AfterInject
+    void setUpErrorHandler(){
+        restApi.setRestErrorHandler(myErrorHandler);
+    }
+
+
     @EditorAction(R.id.password)
     @Click
     void login() {
@@ -62,9 +75,12 @@ public class LoginActivity extends AppCompatActivity {
             Log.e("token", tokenContainerDTO.getAccessToken());
 
 
-        } catch (Exception e) {
-            showLoginError();
+        } catch (RestClientException e) {
+            if(NetworkingUtils.isBadRequest(e)) {
+                showLoginError();
+            }
             Log.e(TAG, e.getMessage(),e);
+
         }
 
     }

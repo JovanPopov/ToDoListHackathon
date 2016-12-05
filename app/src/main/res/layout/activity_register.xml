@@ -12,6 +12,7 @@
     tools:context="eu.execom.todolistgrouptwo.activity.RegisterActivity">
 
     <android.support.design.widget.TextInputLayout
+        android:id="@+id/inputError"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
@@ -27,6 +28,7 @@
     </android.support.design.widget.TextInputLayout>
 
     <android.support.design.widget.TextInputLayout
+        android:id="@+id/passLengthError"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
@@ -41,6 +43,7 @@
     </android.support.design.widget.TextInputLayout>
 
     <android.support.design.widget.TextInputLayout
+        android:id="@+id/passwordsError"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 

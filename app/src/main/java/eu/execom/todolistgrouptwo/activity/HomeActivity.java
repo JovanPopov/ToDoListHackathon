@@ -115,13 +115,14 @@ public class HomeActivity extends AppCompatActivity{
     MyErrorHandler myErrorHandler;
 
 
+    @AfterInject
+    void setUpErrorHandler(){
+        restApi.setRestErrorHandler(myErrorHandler);
+    }
 
     @AfterViews
     @Background
     void checkUser() {
-
-        restApi.setRestErrorHandler(myErrorHandler);
-
         if (!userPreferences.accessToken().exists()) {
             LoginActivity_.intent(this).startForResult(LOGIN_REQUEST_CODE);
             return;
@@ -178,7 +179,7 @@ public class HomeActivity extends AppCompatActivity{
         task.setFinished(!task.isFinished());
         try {
             restApi.updateTask(task.getId(),task);
-        } catch (Exception e) {
+        } catch (RestClientException e) {
             e.printStackTrace();
             task.setFinished(!task.isFinished());
         }
@@ -206,12 +207,10 @@ public class HomeActivity extends AppCompatActivity{
             final Gson gson = new Gson();
             final Task newTask = gson.fromJson(task, Task.class);
 
-
-
             try {
-                final Task newNewTask = taskDAOWrapper.create(newTask);
+                final Task newNewTask = restApi.createTask(newTask);
                 onTaskCreated(newNewTask);
-            } catch (Exception e) {
+            } catch (RestClientException e) {
                 Log.e(TAG, e.getMessage(),e);
             }
         }
@@ -250,7 +249,7 @@ public class HomeActivity extends AppCompatActivity{
         try {
             tasks = restApi.getAallTasks();
             refreshList();
-        } catch (Exception e) {
+        } catch (RestClientException e) {
             e.printStackTrace();
         }
     }
@@ -260,11 +259,6 @@ public class HomeActivity extends AppCompatActivity{
         if(tasks != null) {
             adapter.setTasks(tasks);
         }
-    }
-
-    @UiThread
-    public void checkForConnection(){
-        NetworkingUtils.checkForConnection(this);
     }
 
     @Override
