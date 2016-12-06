@@ -54,7 +54,6 @@ public class HomeActivity extends AppCompatActivity{
      */
     protected static final int ADD_TASK_REQUEST_CODE = 42;
     public static final int LOGIN_REQUEST_CODE = 420; // BLAZE IT
-    protected static final int EDIT_TASK_REQUEST_CODE = 421;
 
     /**
      * Tasks are kept in this list during a user session.
@@ -118,7 +117,7 @@ public class HomeActivity extends AppCompatActivity{
     @ItemClick
     void myListViewItemClicked(Task task){
         final Gson gson = new Gson();
-        TaskDetailActivity_.intent(this).extra("taskDetail",gson.toJson(task)).startForResult(EDIT_TASK_REQUEST_CODE);
+        TaskDetailActivity_.intent(this).extra("taskDetail",gson.toJson(task)).start();
     }
 
     @UiThread
