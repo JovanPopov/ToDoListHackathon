@@ -1,5 +1,6 @@
 package eu.execom.todolistgrouptwo.util;
 
+
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -12,6 +13,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.RestClientException;
+
+import eu.execom.todolistgrouptwo.R;
 
 
 public class NetworkingUtils {
@@ -35,24 +38,27 @@ public class NetworkingUtils {
 
         if (!result) {
 
-            final AlertDialog alertDialog = new AlertDialog.Builder(context).create();
-            alertDialog.setTitle("Info");
-            alertDialog.setMessage("Internet not available, you need to turn on your wifi");
-            alertDialog.setIcon(android.R.drawable.ic_dialog_alert);
-            alertDialog.setButton(DialogInterface.BUTTON_NEGATIVE,"cancel", new DialogInterface.OnClickListener() {
-                public void onClick(DialogInterface dialog, int which) {
-                    alertDialog.dismiss();
-                }
-            });
+            AlertDialog.Builder alert = new AlertDialog.Builder(
+                    context);
+            alert.setTitle(R.string.info);
+            alert.setMessage(R.string.wifi_problem);
+            alert.setPositiveButton("OK", new DialogInterface.OnClickListener() {
 
-            alertDialog.setButton(DialogInterface.BUTTON_POSITIVE,"OK", new DialogInterface.OnClickListener() {
+                @Override
                 public void onClick(DialogInterface dialog, int which) {
                     context.startActivity(new Intent(WifiManager.ACTION_PICK_WIFI_NETWORK));
+                }
+            });
+            alert.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
 
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+
+                    dialog.dismiss();
                 }
             });
 
-            alertDialog.show();
+            alert.show();
 
         }
 

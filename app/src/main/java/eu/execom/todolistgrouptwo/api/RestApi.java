@@ -1,6 +1,7 @@
 package eu.execom.todolistgrouptwo.api;
 
 import org.androidannotations.rest.spring.annotations.Body;
+import org.androidannotations.rest.spring.annotations.Delete;
 import org.androidannotations.rest.spring.annotations.Get;
 import org.androidannotations.rest.spring.annotations.Header;
 import org.androidannotations.rest.spring.annotations.Path;
@@ -43,4 +44,7 @@ public interface RestApi extends RestClientErrorHandling {
 
     @Put(value = ApiConstants.TASK_PATH + "/{id}")
     Task updateTask(@Path int id, @Body Task task);
+
+    @Delete(value = ApiConstants.TASK_PATH + "/{id}")
+    Task deleteTask(@Path int id);
 }

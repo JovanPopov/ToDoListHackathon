@@ -1,18 +1,18 @@
 package eu.execom.todolistgrouptwo.activity;
 
 import android.content.Intent;
-import android.os.PersistableBundle;
 import android.support.design.widget.TextInputEditText;
 import android.support.design.widget.TextInputLayout;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.widget.TextView;
 
 import com.google.gson.Gson;
 
 import org.androidannotations.annotations.AfterTextChange;
+import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.Click;
 import org.androidannotations.annotations.EActivity;
+import org.androidannotations.annotations.OptionsItem;
 import org.androidannotations.annotations.ViewById;
 
 import eu.execom.todolistgrouptwo.R;
@@ -71,9 +71,13 @@ public class AddTaskActivity extends AppCompatActivity {
     }
 
 
-    @Override
-    public void onCreate(Bundle savedInstanceState, PersistableBundle persistentState) {
-        super.onCreate(savedInstanceState, persistentState);
-        getActionBar().setHomeButtonEnabled(true);
+    @AfterViews
+    void setUpView(){
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+    }
+
+    @OptionsItem(android.R.id.home)
+    void homeSelected() {
+        onBackPressed();
     }
 }

@@ -1,10 +1,10 @@
 package eu.execom.todolistgrouptwo.activity;
 
-import android.os.PersistableBundle;
+import android.content.DialogInterface;
 import android.support.design.widget.TextInputEditText;
 import android.support.design.widget.TextInputLayout;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -71,6 +71,7 @@ public class TaskDetailActivity extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         super.onCreateOptionsMenu(menu);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         final Gson gson = new Gson();
         task = gson.fromJson(taskDetail, Task.class);
         setFields();
@@ -136,14 +137,60 @@ public class TaskDetailActivity extends AppCompatActivity {
         return true;
     }
 
+
+    @OptionsItem
+    boolean taskDeleteMenu() {
+
+        AlertDialog.Builder alert = new AlertDialog.Builder(
+                this);
+        alert.setTitle(R.string.confirm_delete);
+        alert.setMessage(R.string.delete_text);
+        alert.setPositiveButton(R.string.yes, new DialogInterface.OnClickListener() {
+
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                deleteTask();
+                dialog.dismiss();
+            }
+        });
+        alert.setNegativeButton(R.string.no, new DialogInterface.OnClickListener() {
+
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+
+                dialog.dismiss();
+            }
+        });
+
+        alert.show();
+
+        return true;
+    }
+
+    @Background
+    public void deleteTask() {
+        try {
+            restApi.deleteTask(task.getId());
+            finish();
+        } catch (RestClientException e) {
+            e.printStackTrace();
+            notifyUserDelete();
+        }
+    }
+
+    @UiThread
+    public void notifyUserDelete() {
+        Toast.makeText(this, R.string.delete_error, Toast.LENGTH_SHORT).show();
+    }
+
     @AfterTextChange(R.id.title)
     void removeError() {
         inputError.setErrorEnabled(false);
     }
 
-    @Override
-    public void onCreate(Bundle savedInstanceState, PersistableBundle persistentState) {
-        super.onCreate(savedInstanceState, persistentState);
-        getActionBar().setHomeButtonEnabled(true);
+
+    @OptionsItem(android.R.id.home)
+    void homeSelected() {
+        onBackPressed();
     }
 }

@@ -19,18 +19,10 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".activity.AddTaskActivity_" >
-        <meta-data
-            android:name="android.support.PARENT_ACTIVITY"
-            android:value=".activity.HomeActivity_" />
-        </activity>
+        <activity android:name=".activity.AddTaskActivity_" />
         <activity android:name=".activity.LoginActivity_" />
         <activity android:name=".activity.RegisterActivity_" />
-        <activity android:name=".activity.TaskDetailActivity_">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value=".activity.HomeActivity_" />
-        </activity>
+        <activity android:name=".activity.TaskDetailActivity_"/>
     </application>
 
 </manifest>
